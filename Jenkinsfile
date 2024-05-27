@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker buildx build -t pranil0712/docker_01 .'
+                    sh 'sudo docker buildx build -t pranil0712/docker_01 .'
                 }
             }
         }
@@ -21,10 +21,10 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u pranil0712 -p ${dockerhubpwd}'
+                   sh 'sudo docker login -u pranil0712 -p ${dockerhubpwd}'
 
 }
-                   sh 'docker push pranil0712/docker_01'
+                   sh 'sudo docker push pranil0712/docker_01'
                 }
             }
         }
