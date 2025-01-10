@@ -6,14 +6,14 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                git 'https://github.com/Pranil0712/P3-CI-CD-Devops.git'
+                git 'https://github.com/ankitayawale/P3-CI-CD-Devops.git'
                 sh 'mvn clean install'
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'sudo docker buildx build -t pranil0712/docker_01 .'
+                    sh 'sudo docker buildx build -t ankitayawale6552/batch-23 .'
                 }
             }
         }
@@ -21,17 +21,17 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'sudo docker login -u pranil0712 -p ${dockerhubpwd}'
+                   sh 'sudo docker login -u ankitayawale6552 -p ${dockerhubpwd}'
 
 }
-                   sh 'sudo docker push pranil0712/docker_01'
+                   sh 'sudo docker push ankitayawale6552/batch-23'
                 }
             }
         }
         stage('EKS and Kubectl configuration'){
             steps{
                 script{
-                    sh 'aws eks update-kubeconfig --region ap-south-1 --name ankit-cluster'
+                    sh 'aws eks update-kubeconfig --region ap-south-1 --name ankita-cluster'
                 }
             }
         }
